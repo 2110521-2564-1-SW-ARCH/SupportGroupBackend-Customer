@@ -2,8 +2,25 @@ const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const configs = require("./configs");
+const cors = require("cors");
 const auth = require("./api/routes/user");
 const app = express();
+
+const whitelist = ["http://localhost:3000"];
+const corsOption = {
+	origin: (origin, cb) => {
+		origin && debug("origin %o", origin);
+		if (whitelist.indexOf(origin) !== -1) {
+			cb(null, true);
+		} else {
+			cb(new Error("Not allows by Cors"));
+		}
+	},
+	optionsSuccessStatus: 200,
+	credentials: true,
+};
+
+app.use(cors(corsOption));
 
 mongoose.connect(configs.databaseURL, {
 	useNewUrlParser: true,
