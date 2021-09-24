@@ -8,12 +8,11 @@ const app = express();
 
 const whitelist = ["http://localhost:3000"];
 const corsOption = {
-	origin: (origin, cb) => {
-		origin && debug("origin %o", origin);
+	origin: (origin, callback) => {
 		if (whitelist.indexOf(origin) !== -1) {
-			cb(null, true);
+			callback(null, true);
 		} else {
-			cb(new Error("Not allows by Cors"));
+			callback(new Error("Not allowed by CORS"));
 		}
 	},
 	optionsSuccessStatus: 200,
