@@ -13,3 +13,4 @@ yarn-error.log*
 build
 
 /volumes
+package-lock.json
